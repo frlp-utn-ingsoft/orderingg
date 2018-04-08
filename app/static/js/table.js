@@ -13,7 +13,7 @@ const Table = (function () {
      */
     function init(config) {
         const $el = document.querySelector(config.el);
-        const data = {}
+        let data = config.data;
 
         // Si es una promise nos pasaron datos desde una api
         // cuando la promise se resuelve, renderizamos nuevamente
