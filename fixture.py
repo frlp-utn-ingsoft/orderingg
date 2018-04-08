@@ -1,6 +1,7 @@
 from app.models import Product, Order, OrderProduct
+from app import db
 
-def addorders():
+def addOrders():
     orders = Order.query.all()
 
     if not orders:
