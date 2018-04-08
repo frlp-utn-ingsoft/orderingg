@@ -1,5 +1,5 @@
 from app import app, db
-from app.models import Product
+from app.models import Product, Order
 from flask import request, jsonify, render_template
 
 @app.route("/")
@@ -23,3 +23,13 @@ def products():
         # Obtiene todos los productos disponibles
         p = Product.query.all()
         return jsonify([i.serialize for i in p])
+
+@app.route("/order", methods=['GET'])
+def orders():
+    orders = Order.query.all()
+    return jsonify([order.serialize for order in orders])
+
+@app.route("/order/<pk>", methods=['GET'])
+def order(pk):
+    order = Order.query.get(pk)
+    return jsonify(order.serialize)
