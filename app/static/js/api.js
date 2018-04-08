@@ -12,7 +12,19 @@ const API = (function () {
             });
     }
 
+    /**
+     * Obtiene todos los productos desde el backend
+     *
+     */
+    function getProducts() {
+        return fetch('/product')
+            .then(function toJson(r) {
+                return r.json();
+            });
+    }
+
     return {
-        getOrder
+        getOrder,
+        getProducts
     }
 })()
