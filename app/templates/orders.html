@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Orderingg</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+    <link rel="stylesheet" href="/static/css/style.css">
+
+    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+</head>
+<body>
+    <main class="container">
+        <h1 class="title">Lista de compra</h1>
+
+        <div class="columns">
+            <div class="column is-12">
+                <button class="button is-primary is-pulled-right">
+                    <span class="icon"><i class="fas fa-plus"></i></span>
+                    <span>Agregar</span>
+                </button>
+            </div>
+        </div>
+        <div class="columns">
+            <div class="column is-12" id="orders">
+            </div>
+        </div>
+    </main>
+
+    {% raw %} <!-- raw indica a jinja2 que no compile esta porcion de html -->
+
+    <!-- Template handlebars de la tabla -->
+    <script id="table-template" type="text/x-handlebars-template">
+        <table class="table is-fullwidth is-hoverable">
+            <thead>
+                <tr>
+                    <td>ID</td>
+                    <td>Descripción</td>
+                    <td>Precio unitario</td>
+                    <td>Cantidad</td>
+                    <td>Precio total</td>
+                </tr>
+            </thead>
+            <tbody>
+                {{# each products }}
+                    <tr>
+                        <td>{{ id }}</td>
+                        <td>{{ description }}</td>
+                        <td>{{ price }}</td>
+                        <td>{{ quantity }}</td>
+                        <td>{{ totalPrice }}</td>
+                    </tr>
+                {{/ each }}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>Total</td>
+                    <td>{{ total }}</td>
+                </tr>
+            </tfoot>
+        </table>
+    </script>
+    {% endraw %}
+</body>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js"></script>
+
+<!-- Componente de la tabla -->
+<script src="/static/js/table.js"></script>
+
+<!-- Funciones para interactuar con el backend -->
+<script src="/static/js/api.js"></script>
+
+<!-- Inicializa la app -->
+<script src="/static/js/index.js"></script>
+</html>
