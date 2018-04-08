@@ -26,10 +26,26 @@ def products():
 
 @app.route("/order", methods=['GET'])
 def orders():
+    """
+    Obtiene todas las ordenes
+    """
+
     orders = Order.query.all()
     return jsonify([order.serialize for order in orders])
 
 @app.route("/order/<pk>", methods=['GET'])
 def order(pk):
+    """
+    Obtiene la orden con id `pk`
+
+    Si no se encuentra la orden, se responde con un 404
+    """
+
+    # obtenemos las ordenes
     order = Order.query.get(pk)
+
+    # Si la orden no existe, levantamos el error
+    if (not order):
+        return jsonify({ 'error': 'not-found' }), 404
+
     return jsonify(order.serialize)
