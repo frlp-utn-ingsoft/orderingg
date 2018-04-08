@@ -28,8 +28,17 @@ flask run
 
 En Windows
 
+-cmd
 ```bash
 set FLASK_APP=orderingg.py
 set FLASK_DEBUG=1
 flask run
 ```
+
+-PowerShell
+```bash
+$env:FLASK_APP="orderingg.py"
+$env:FLASK_DEBUG="1"
+flask run
+```
+

@@ -11,6 +11,7 @@ migrate = Migrate(app, db)
 
 from app import routes
 
+# Agrega cuatro productos al iniciar la app
 from app.models import Product
 products = Product.query.all()
 
