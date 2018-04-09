@@ -1,22 +1,44 @@
-// Inicializamos la tabla
-Table.init({
-    el: '#orders',
-    data: API.getOrder()
-})
+(function () {
+    const $totalPrice = document.querySelector('#total-price');
 
-// Inicializamos el select de productos
-Select.init({
-    el: '#select',
-    data: API.getProducts()
-})
+    // Estado de la aplicacion
+    const state = {
+        selectedProduct: null,
+        quantity: 0,
+    }
 
-function openModal() {
-    const modal = document.getElementById('modal');
-    modal.classList.add('is-active');
-}
+    /**
+     * Actualiza el valor del precio total
+     **/
+    function updateTotalPrice() {
+        const totalPrice = state.selectedProduct.price * state.quantity;
+        $totalPrice.innerHTML = `Precio total: $ ${totalPrice}`
+    }
 
-function closeModal() {
-    const modal = document.getElementById('modal');
-    modal.classList.remove('is-active');
-}
+    /**
+     * Inicializa la aplicacion
+     **/
+    function init() {
+        Modal.init({
+            el: '#modal',
+            products: API.getProducts(),
+            onProductSelect: function (selectedProduct) {
+                state.selectedProduct = selectedProduct;
+                updateTotalPrice();
+            },
+            onChangeQunatity: function (quantity) {
+                state.quantity = quantity;
+                updateTotalPrice();
+            }
+        });
+
+        // Inicializamos la tabla
+        Table.init({
+            el: '#orders',
+            data: API.getOrder()
+        });
+    }
+
+    init();
+})()
 

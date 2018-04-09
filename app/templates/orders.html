@@ -16,7 +16,7 @@
 
         <div class="columns">
             <div class="column is-12">
-                <button class="button is-primary is-pulled-right" onclick="openModal()">
+                <button class="button is-primary is-pulled-right" onclick="Modal.open()">
                     <span class="icon"><i class="fas fa-plus"></i></span>
                     <span>Agregar</span>
                 </button>
@@ -31,24 +31,30 @@
             <div class="modal-card">
                 <header class="modal-card-head">
                     <p class="modal-card-title">Agregar producto</p>
-                    <button class="delete" aria-label="close" onclick="closeModal()"></button>
+                    <button class="delete" aria-label="close" onclick="Modal.close()"></button>
                 </header>
                 <section class="modal-card-body">
                     <form>
-                        <div id="select" class="field">
-                        </div>
-                        <br>
                         <div class="field">
-                            <label>Cantidad</label>
+                            <labe class="label">Seleccionar producto</labe>
+                            <div id="select" class="control"></div>
+                        </div>
+
+                        <div class="field">
+                            <label class="label">Cantidad</label>
                             <div class="control">
-                                <input class="input" type="number">
+                                <input id="quantity" class="input" type="number">
                             </div>
+                        </div>
+
+                        <div class="field">
+                            <label class="label" id="total-price"></label>
                         </div>
                     </form>
                 </section>
                 <footer class="modal-card-foot">
                     <button class="button is-success">Guardar</button>
-                    <button class="button" onclick="closeModal()">Cancelar</button>
+                    <button class="button" onclick="Modal.close()">Cancelar</button>
                 </footer>
             </div>
         </div>
@@ -93,21 +99,22 @@
 
     <!-- Template handlebars del select de productos -->
     <script id="select-template" type="text/x-handlebars-template">
-        <label>Seleccionar producto</label>
-        <div class="control">
-            <div class="select">
-                <select>
-                    {{# each data }}
+        <div class="select">
+            <select>
+                <option disabled selected value="">Seleccione un producto</option>
+                {{# each products }}
                     <option value="{{ id }}">{{ name }}</option>
-                    {{/ each }}
-                </select>
-            </div>
+                {{/ each }}
+            </select>
         </div>
     </script>
     {% endraw %}
 </body>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js"></script>
+
+<!-- Componente de la modal-->
+<script src="/static/js/modal.js"></script>
 
 <!-- Componente de la tabla -->
 <script src="/static/js/table.js"></script>
