@@ -18,7 +18,7 @@ En Linux
 
 ```bash
 export FLASK_APP=orderingg.py
-flask db migrate
+flask db upgrade
 python fixture.py
 ```
 
@@ -27,15 +27,14 @@ En Windows
 -cmd
 ```bash
 set FLASK_APP=orderingg.py
-flask db migrate
+flask db upgrade
 python fixture.py
 ```
 
 -PowerShell
 ```bash
 $env:FLASK_APP="orderingg.py"
-$env:FLASK_DEBUG="1"
-flask db migrate
+flask db upgrade
 python fixture.py
 ```
 
