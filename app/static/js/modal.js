@@ -6,6 +6,14 @@ const Modal = (function () {
      **/
     function open() {
         $modal.classList.add('is-active');
+        const edit_title = document.getElementById('edit_title');
+        const save_title = document.getElementById('save_title');
+        const edit_button = document.getElementById('edit_button');
+        const save_button = document.getElementById('save_button');
+        edit_button.style.display = "none";
+        edit_title.hidden = true;
+        save_button.style.display = "block";
+        save_title.hidden = false;
     }
 
     /**

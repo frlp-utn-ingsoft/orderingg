@@ -30,7 +30,8 @@
             <div class="modal-background"></div>
             <div class="modal-card">
                 <header class="modal-card-head">
-                    <p class="modal-card-title">Agregar producto</p>
+                    <p id="save_title" class="modal-card-title">Agregar producto</p>
+                    <p id="edit_title" hidden class="modal-card-title">Editar producto</p>
                     <button class="delete" aria-label="close" onclick="Modal.close()"></button>
                 </header>
                 <section class="modal-card-body">
@@ -53,7 +54,8 @@
                     </form>
                 </section>
                 <footer class="modal-card-foot">
-                    <button class="button is-success">Guardar</button>
+                    <button id="save_button" class="button is-success">Guardar</button>
+                    <button id="edit_button" class="button is-success">Editar</button>
                     <button class="button" onclick="Modal.close()">Cancelar</button>
                 </footer>
             </div>
@@ -100,7 +102,7 @@
     <!-- Template handlebars del select de productos -->
     <script id="select-template" type="text/x-handlebars-template">
         <div class="select">
-            <select>
+            <select id="select_prod">
                 <option disabled selected value="">Seleccione un producto</option>
                 {{# each products }}
                     <option value="{{ id }}">{{ name }}</option>
