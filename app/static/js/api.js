@@ -22,8 +22,33 @@ const API = (function () {
             });
     }
 
+    /**
+     * Obtiene todos los productos pertenecientes a una orden desde el backend
+     *
+     */
+    function getOrderProduct(orderId, productId) {
+        return fetch('/order/' + orderId + '/product/' + productId )
+            .then(function toJson(r) {
+                return r.json();
+            });
+    }
+
+    /**
+     * Edita un producto de una orden
+     *
+     */
+    function editProduct(orderId, productId, quantity, product) {
+        const data = JSON.stringify( {quantity: quantity, product: product} )
+        return fetch('/order/' + orderId + '/product/' + productId, {method: 'PUT', headers: {'Accept': 'application/json','Content-Type': 'application/json'},body: data})
+            .then(function toJson(r) {
+                return r.json();
+            });
+    }
+
     return {
         getOrder,
-        getProducts
+        getProducts,
+        getOrderProduct,
+        editProduct
     }
 })()
