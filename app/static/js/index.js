@@ -7,6 +7,8 @@
         quantity: 0,
     }
 
+    const refs = {}
+
     /**
      * Actualiza el valor del precio total
      **/
@@ -19,7 +21,7 @@
      * Inicializa la aplicacion
      **/
     function init() {
-        Modal.init({
+        refs.modal = Modal.init({
             el: '#modal',
             products: API.getProducts(),
             onProductSelect: function (selectedProduct) {
@@ -33,12 +35,13 @@
         });
 
         // Inicializamos la tabla
-        Table.init({
+        refs.table = Table.init({
             el: '#orders',
             data: API.getOrder()
         });
     }
 
     init();
+    window.refs = refs;
 })()
 
