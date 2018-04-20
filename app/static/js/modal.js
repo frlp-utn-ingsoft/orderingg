@@ -1,25 +1,24 @@
 const Modal = (function () {
-    let $modal;
 
     /**
      * Abre el modal
      **/
-    function open() {
+    function open($modal) {
+        const editTitle = document.getElementById('edit-title');
+        const saveTitle = document.getElementById('save-title');
+        const editButton = document.getElementById('edit-button');
+        const saveButton = document.getElementById('save-button');
+
         $modal.classList.add('is-active');
-        const edit_title = document.getElementById('edit_title');
-        const save_title = document.getElementById('save_title');
-        const edit_button = document.getElementById('edit_button');
-        const save_button = document.getElementById('save_button');
-        edit_button.style.display = "none";
-        edit_title.hidden = true;
-        save_button.style.display = "block";
-        save_title.hidden = false;
+
+        editButton.classList.add('is-hidden');
+        editTitle.classList.add('is-hidden');
     }
 
     /**
      * Cierra el modal
      **/
-    function close() {
+    function close($modal) {
         $modal.classList.remove('is-active');
     }
 
@@ -27,7 +26,7 @@ const Modal = (function () {
      * Inicializa el modal de agregar producto
      **/
     function init(config) {
-        $modal = document.querySelector(config.el);
+        const $modal = document.querySelector(config.el);
 
         // Inicializamos el select de productos
         Select.init({
@@ -41,11 +40,17 @@ const Modal = (function () {
             .addEventListener('input', function () {
                 config.onChangeQunatity(this.value)
             });
+
+        $modal.querySelector('#save-button')
+            .addEventListener('click', config.onAddProduct);
+
+        return {
+            close: close.bind(null, $modal),
+            open: open.bind(null, $modal)
+        }
     }
 
     return {
-        open,
-        close,
         init
     }
 })();

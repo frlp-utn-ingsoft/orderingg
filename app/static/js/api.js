@@ -27,7 +27,7 @@ const API = (function () {
      *
      */
     function getOrderProduct(orderId, productId) {
-        return fetch('/order/' + orderId + '/product/' + productId )
+        return fetch(`/order/${ orderId }/product/${ productId }`)
             .then(function toJson(r) {
                 return r.json();
             });
@@ -38,17 +38,47 @@ const API = (function () {
      *
      */
     function editProduct(orderId, productId, quantity, product) {
-        const data = JSON.stringify( {quantity: quantity, product: product} )
-        return fetch('/order/' + orderId + '/product/' + productId, {method: 'PUT', headers: {'Accept': 'application/json','Content-Type': 'application/json'},body: data})
-            .then(function toJson(r) {
-                return r.json();
-            });
+        const data = JSON.stringify({ quantity: quantity, product: product })
+
+        return fetch(`/order/${ orderId }/product/${ productId }`,
+            {
+                method: 'PUT',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: data
+            }
+        ).then(function toJson(r) {
+            return r.json();
+        });
+    }
+
+    /**
+     * Agrega un producto a una orden
+     **/
+    function addProduct(orderId, product, quantity) {
+        const data = JSON.stringify({ quantity: quantity, product: product })
+
+        return fetch(`/order/${ orderId }/product`,
+            {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: data
+            }
+        ).then(function toJson(r) {
+            return r.json();
+        });
     }
 
     return {
         getOrder,
         getProducts,
         getOrderProduct,
-        editProduct
+        editProduct,
+        addProduct
     }
 })()
