@@ -70,8 +70,13 @@ def order_product_detail(pk_order, pk_product):
         return jsonify(order_product.serialize)
     else:
         new_quantity = request.get_json()['quantity']
+        new_product = request.get_json()['product']
 
         if (new_quantity):
             order_product.quantity = new_quantity
-            db.session.commit()
+        if (new_product):
+            order_product.product = Product.query.get(new_product)
+            order = Order.query.get(pk_order)
+            order.products.append(order_product)
+        db.session.commit()
         return jsonify(order_product.serialize)
