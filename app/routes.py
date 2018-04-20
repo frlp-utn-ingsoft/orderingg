@@ -52,6 +52,38 @@ def order(pk):
 
     return jsonify(order.serialize)
 
+@app.route("/order/<pk>/product", methods=['POST'])
+def addProductToOrder(pk):
+    # obtenemos las ordenes
+    order = Order.query.get(pk)
+
+    # Si la orden no existe, levantamos el error
+    if (not order):
+        return jsonify({ 'error': '<order {}> not found'.format(pk) }), 404
+
+    product_data = request.get_json()
+    product = product_data['product']
+
+    product_exists = any([
+        p.product.id == product['id'] for p in order.products
+    ])
+
+    # Si el producto existe en la orden levantamos el error
+    if (product_exists):
+        return jsonify({
+            'error': '<product {}> exists in <order {}>. Use PUT method'
+                .format(product['id'], pk)
+        }), 400
+
+    orderProduct = OrderProduct(quantity=product_data['quantity'])
+    orderProduct.product = Product.query.get(product['id'])
+    order.products.append(orderProduct)
+
+    db.session.add(order)
+    db.session.commit()
+
+    return jsonify(order.serialize), 201
+
 @app.route("/order/<pk_order>/product/<pk_product>", methods=['GET', 'PUT'])
 def order_product_detail(pk_order, pk_product):
     """
