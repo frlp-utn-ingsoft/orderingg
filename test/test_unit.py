@@ -37,6 +37,21 @@ class OrderingTestCase(TestCase):
 
         assert len(data) == 0, "La base de datos tiene productos"
 
+    def test_crear_producto(self):
+        data = {
+            'name': 'Tenedor',
+            'price': 50
+        }
+
+        resp = self.client.post('/product', data=json.dumps(data), content_type='application/json')
+
+        # Verifica que la respuesta tenga el estado 200 (OK)
+        self.assert200(resp, "Falló el POST")
+        p = Product.query.all()
+
+        # Verifica que en la lista de productos haya un solo producto
+        self.assertEqual(len(p), 1, "No hay productos")
+
 if __name__ == '__main__':
     unittest.main()
 
